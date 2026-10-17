@@ -64,8 +64,9 @@ def main():
                 cur_x = x
                 cur_y = y
             else:
-                new_rect = pygame.Rect(cur_x,cur_y, cur_x-x,cur_y-y)
-                print(cur_x,cur_y, cur_x-x,cur_y-y)
+
+                new_rect = pygame.Rect(cur_x,cur_y, x-cur_x,y-cur_y)
+                print(cur_x,cur_y, x-cur_x,y-cur_y)
                 cur_x = 0
                 cur_y = 0
                 list_of_roads.append(new_rect)

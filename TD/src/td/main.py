@@ -1,7 +1,11 @@
 import pygame
-
+global x, y, x2, y2
 def run_event_processing():
+
+
+    global x2, x, y, y2
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
@@ -12,8 +16,9 @@ def run_event_processing():
                     ...
                     #if coor in button of menu do something
 
-                mouse_x = mouse_x // 100
-                mouse_y = mouse_y // 100
+                mouse_x = mouse_x
+                mouse_y = mouse_y
+                x, y = pygame.mouse.get_pos()
                 print("left ", mouse_x, mouse_y)
 
         if event.type == pygame.BUTTON_WHEELUP:
@@ -22,9 +27,14 @@ def run_event_processing():
         if event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
                 mouse_x2, mouse_y2 = pygame.mouse.get_pos()
-                mouse_x2 = mouse_x2 // 100
-                mouse_y2 = mouse_y2 // 100
+                mouse_x2 = mouse_x2
+                mouse_y2 = mouse_y2
+                x2 = (mouse_x2 - x)
+                y2 = (mouse_y2 - y)
                 print("right ", mouse_x2, mouse_y2)
+    return x, y,x2,y2
+
+
 
 
 def draw_map(gamewindow, background, list_of_roads):
@@ -48,14 +58,20 @@ def main():
 
 
     pygame.init()
-    FON_BLUE = (203, 156 , 105)
+    FON_BLUE = (0, 0 , 0)
     pygame.display.set_caption("TD")
     gamewindow = pygame.display.set_mode((800, 800))
 
     while True:
-        mouse_result = run_event_processing()
+        mouse_result = []
+        x1,y1,x2,y2 = run_event_processing()
+        mouse_result.append(x1)
+        mouse_result.append(y1)
+        mouse_result.append(x2)
+        mouse_result.append(y2)
+        print(mouse_result)
         if not mouse_result is None:
-
+            pygame.Rect(mouse_result[0],mouse_result[1],500,500)
             draw_map(gamewindow, FON_BLUE,list_of_roads)
 
             pygame.display.flip()
